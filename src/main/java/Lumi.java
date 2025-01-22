@@ -30,8 +30,9 @@ public class Lumi {
                 System.out.println("____________________________________________________________");
                 if (tasks.isEmpty()) {
                     System.out.println("    No tasks added yet!");
+                    System.out.println("____________________________________________________________");
                 } else {
-                    System.out.println("    Here are the tasks in your list: ");
+                    System.out.println("    Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.print("    ");
                         System.out.println((i + 1) + ". " + tasks.get(i)); // Display stored inputs
@@ -49,7 +50,9 @@ public class Lumi {
                     System.out.println("      " + task);
                     System.out.println("____________________________________________________________");
                 } catch (Exception e) {
+                    System.out.println("____________________________________________________________");
                     System.out.println("    Invalid task number!");
+                    System.out.println("____________________________________________________________");
                 }
             } else if (input.startsWith("unmark ")) {
                 try {
@@ -61,16 +64,18 @@ public class Lumi {
                     System.out.println("      " + task);
                     System.out.println("____________________________________________________________");
                 } catch (Exception e) {
+                    System.out.println("____________________________________________________________");
                     System.out.println("Invalid task number!");
+                    System.out.println("____________________________________________________________");
                 }
             } else if (input.startsWith("todo ")) {
                 String description = input.substring(5).trim();
                 Task task = new Todo(description);
                 tasks.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + task);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             }else if (input.startsWith("deadline ")) {
                 String[] parts = input.substring(9).split(" /by ");
@@ -79,9 +84,9 @@ public class Lumi {
                 Task task = new Deadline(description, by);
                 tasks.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + task);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else if (input.startsWith("event ")) {
                 String[] parts = input.substring(6).split(" /from ");
@@ -92,13 +97,13 @@ public class Lumi {
                 Task task = new Event(description, from, to);
                 tasks.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + task);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________");
-                System.out.println("I don't understand that command.");
+                System.out.println("    I don't understand that command.");
                 System.out.println("____________________________________________________________");
             }
 

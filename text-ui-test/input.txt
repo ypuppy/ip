@@ -1,0 +1,12 @@
+list
+todo go to utown
+todo go to pc common
+deadline eat lunch /by 1200 noon
+event have lecture /from 1400 /to 1600
+list
+mark 1
+mark 2
+unmark 2
+mark3
+mark 5
+bye
