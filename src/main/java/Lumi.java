@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Lumi {
     public static void main(String[] args) {
-        String logo = " __                \n"
+        String logo = " __\n"
                 + "| |    _   _ __ __ __ _________\n"
                 + "| |   | | | | |\\ \\/ /| |__  __|\n"
                 + "| |__ | |_| | | \\__/ | |_|  |_|\n"
@@ -63,12 +63,45 @@ public class Lumi {
                 } catch (Exception e) {
                     System.out.println("Invalid task number!");
                 }
-            } else {
-                tasks.add(new Task(input)); // Add input to the list
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim();
+                Task task = new Todo(description);
+                tasks.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println("    added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            }else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                Task task = new Deadline(description, by);
+                tasks.add(task);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ");
+                String description = parts[0].trim();
+                String[] times = parts[1].split(" /to ");
+                String from = times[0].trim();
+                String to = times[1].trim();
+                Task task = new Event(description, from, to);
+                tasks.add(task);
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println("I don't understand that command.");
                 System.out.println("____________________________________________________________");
             }
+
         }
 
         scanner.close(); // Close the scanner
