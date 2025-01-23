@@ -27,19 +27,32 @@ public class Lumi {
                 System.out.println("____________________________________________________________");
                 break; // Exit the loop
             } else if (input.equals("list")) {
-                System.out.println("____________________________________________________________");
-                if (tasks.isEmpty()) {
-                    System.out.println("    No tasks added yet!");
+                try {
                     System.out.println("____________________________________________________________");
-                } else {
+                    if (tasks.isEmpty()) {
+                        throw new LumiException("OOPS!!! Your list is empty.");
+                    }
                     System.out.println("    Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.print("    ");
                         System.out.println((i + 1) + ". " + tasks.get(i)); // Display stored inputs
                     }
                     System.out.println("____________________________________________________________");
-
+                } catch (LumiException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
                 }
+                /*
+                System.out.println("____________________________________________________________");
+                if (tasks.isEmpty()) {
+                    throw new LumiException("OOPS!!! Your list is empty.\n____________________________________________________________\n");
+                } else {
+                System.out.println("    Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.print("    ");
+                    System.out.println((i + 1) + ". " + tasks.get(i)); // Display stored inputs
+                }
+            }*/
             } else if (input.startsWith("mark ")) {
                 try {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -69,7 +82,25 @@ public class Lumi {
                     System.out.println("____________________________________________________________");
                 }
             } else if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
+                try {
+                    String description = input.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    Task task = new Todo(description);
+                    tasks.add(task);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + task);
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (LumiException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
+            }
+/*                String description = input.substring(5).trim();
                 Task task = new Todo(description);
                 tasks.add(task);
                 System.out.println("____________________________________________________________");
@@ -77,7 +108,8 @@ public class Lumi {
                 System.out.println("      " + task);
                 System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
-            }else if (input.startsWith("deadline ")) {
+
+            else if (input.startsWith("deadline ")) {
                 String[] parts = input.substring(9).split(" /by ");
                 String description = parts[0].trim();
                 String by = parts[1].trim();
@@ -101,6 +133,61 @@ public class Lumi {
                 System.out.println("      " + task);
                 System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
+
+ */
+            else if (input.startsWith("deadline ")) {
+                try {
+                    String[] parts = input.substring(9).split(" /by ");
+                    if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! The description or deadline of a deadline task cannot be empty.");
+                    }
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    Task task = new Deadline(description, by);
+                    tasks.add(task);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + task);
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (LumiException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("An unexpected error occurred: " + e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
+            } else if (input.startsWith("event ")) {
+                try {
+                    String[] parts = input.substring(6).split(" /from");
+                    if (parts.length < 2 || parts[0].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! The description or time range of an event cannot be empty.");
+                    }
+                    String description = parts[0].trim();
+                    String[] times = parts[1].split(" /to");
+                    if (times.length < 2 || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! The start or end time of an event cannot be empty.");
+                    }
+                    String from = times[0].trim();
+                    String to = times[1].trim();
+                    Task task = new Event(description, from, to);
+                    tasks.add(task);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + task);
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (LumiException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("An unexpected error occurred: " + e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("    I don't understand that command.");
