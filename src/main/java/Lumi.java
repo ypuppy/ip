@@ -78,12 +78,12 @@ public class Lumi {
                     System.out.println("____________________________________________________________");
                 } catch (Exception e) {
                     System.out.println("____________________________________________________________");
-                    System.out.println("Invalid task number!");
+                    System.out.println("    Invalid task number!");
                     System.out.println("____________________________________________________________");
                 }
-            } else if (input.startsWith("todo ")) {
+            } else if (input.startsWith("todo")) {
                 try {
-                    String description = input.substring(5).trim();
+                    String description = input.substring(4).trim();
                     if (description.isEmpty()) {
                         throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
                     }
@@ -135,11 +135,13 @@ public class Lumi {
                 System.out.println("____________________________________________________________");
 
  */
-            else if (input.startsWith("deadline ")) {
+            else if (input.startsWith("deadline")) {
                 try {
-                    String[] parts = input.substring(9).split(" /by ");
-                    if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                        throw new LumiException("OOPS!!! The description or deadline of a deadline task cannot be empty.");
+                    String[] parts = input.substring(8).split("\\s*/by\\s*");
+                    if (parts[0].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! The description of the task cannot be empty.");
+                    } else if ( parts.length < 2 || parts[1].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! what is the deadline?");
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
@@ -159,14 +161,14 @@ public class Lumi {
                     System.out.println("An unexpected error occurred: " + e.getMessage());
                     System.out.println("____________________________________________________________");
                 }
-            } else if (input.startsWith("event ")) {
+            } else if (input.startsWith("event")) {
                 try {
-                    String[] parts = input.substring(6).split(" /from");
-                    if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                        throw new LumiException("OOPS!!! The description or time range of an event cannot be empty.");
+                    String[] parts = input.substring(5).split("\\s*/from\\s*");
+                    if (parts[0].trim().isEmpty()) {
+                        throw new LumiException("OOPS!!! The description of an event cannot be empty.");
                     }
                     String description = parts[0].trim();
-                    String[] times = parts[1].split(" /to");
+                    String[] times = parts[1].split("\\s*/to\\s*");
                     if (times.length < 2 || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
                         throw new LumiException("OOPS!!! The start or end time of an event cannot be empty.");
                     }
