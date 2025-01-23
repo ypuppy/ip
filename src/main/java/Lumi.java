@@ -190,6 +190,40 @@ public class Lumi {
                     System.out.println("An unexpected error occurred: " + e.getMessage());
                     System.out.println("____________________________________________________________");
                 }
+            } else if (input.startsWith("delete")) {
+                try {
+                    // Extract the index from the input
+                    String indexStr = input.substring(6).trim();
+                    int index = Integer.parseInt(indexStr) - 1; // Convert to zero-based index
+
+                    // Check if the index is valid
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new LumiException("    OOPS!!! The task number provided is invalid.");
+                    }
+
+                    // Remove the task and provide feedback
+                    Task removedTask = tasks.remove(index);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("    Noted. I've removed this task:");
+                    System.out.println("      " + removedTask);
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (NumberFormatException e) {
+                    // Handle non-integer input
+                    System.out.println("____________________________________________________________");
+                    System.out.println("    OOPS!!! Please provide a valid task number to delete.");
+                    System.out.println("____________________________________________________________");
+                } catch (LumiException e) {
+                    // Handle invalid task number
+                    System.out.println("____________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    // Catch any unexpected errors
+                    System.out.println("____________________________________________________________");
+                    System.out.println("An unexpected error occurred: " + e.getMessage());
+                    System.out.println("____________________________________________________________");
+                }
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("    I don't understand that command.");
