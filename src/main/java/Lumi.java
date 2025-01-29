@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Lumi {
+
     public static void main(String[] args) {
         String logo = " __\n"
                 + "| |    _   _ __ __ __ _________\n"
@@ -15,7 +16,22 @@ public class Lumi {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = FileManager.loadTasks();
+        //ArrayList<Task> tasks = new ArrayList<>();
+
+        // Print tasks if any exist
+        if (!tasks.isEmpty()) {
+            System.out.println("Previously saved tasks:");
+            System.out.println("____________________________________________________________");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println("____________________________________________________________");
+        } else {
+            System.out.println("No saved tasks found.");
+        }
+
+
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -25,6 +41,7 @@ public class Lumi {
                 System.out.println("____________________________________________________________");
                 System.out.println("    Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
+                FileManager.saveTasks(tasks);
                 break; // Exit the loop
             } else if (input.equals("list")) {
                 try {
@@ -89,6 +106,7 @@ public class Lumi {
                     }
                     Task task = new Todo(description);
                     tasks.add(task);
+                    FileManager.saveTasks(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + task);
@@ -147,6 +165,7 @@ public class Lumi {
                     String by = parts[1].trim();
                     Task task = new Deadline(description, by);
                     tasks.add(task);
+                    FileManager.saveTasks(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + task);
@@ -176,6 +195,7 @@ public class Lumi {
                     String to = times[1].trim();
                     Task task = new Event(description, from, to);
                     tasks.add(task);
+                    FileManager.saveTasks(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("      " + task);
@@ -203,6 +223,7 @@ public class Lumi {
 
                     // Remove the task and provide feedback
                     Task removedTask = tasks.remove(index);
+                    FileManager.saveTasks(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println("    Noted. I've removed this task:");
                     System.out.println("      " + removedTask);
@@ -226,7 +247,7 @@ public class Lumi {
                 }
             } else {
                 System.out.println("____________________________________________________________");
-                System.out.println("    I don't understand that command.");
+                System.out.println("    Sorry,I don't understand that command.");
                 System.out.println("____________________________________________________________");
             }
 
