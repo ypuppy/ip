@@ -1,16 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class FileManager {
-    private static final String FILE_PATH = "./src/main/java/Lumi.txt";
+public class Storage {
+    private String filePath;
 
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
     // Load tasks from file
-    public static ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() throws LumiException {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         if (!file.exists()) {
             try {
@@ -38,8 +39,8 @@ public class FileManager {
     }
 
     // Save tasks to file
-    public static void saveTasks(ArrayList<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+    public void saveTasks(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 writer.write(formatTaskForFile(task));
                 writer.newLine();
@@ -50,7 +51,7 @@ public class FileManager {
     }
 
     // Convert Task object to string format for file storage
-    private static String formatTaskForFile(Task task) {
+    private String formatTaskForFile(Task task) {
         String type = task instanceof Todo ? "T" :
                 task instanceof Deadline ? "D" :
                         task instanceof Event ? "E" : "?";
