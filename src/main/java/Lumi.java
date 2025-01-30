@@ -7,7 +7,6 @@ public class Lumi {
     public Lumi(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (LumiException e) {
@@ -25,7 +24,7 @@ public class Lumi {
         while (isRunning) {
             String input = ui.readCommand();
             try {
-                isRunning = parser.processCommand(input, tasks, ui, storage);
+                isRunning = Parser.processCommand(input, tasks, ui, storage);
             } catch (LumiException e) {
                 ui.showError(e.getMessage());
             }
