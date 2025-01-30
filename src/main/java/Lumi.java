@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Lumi {
 
@@ -245,6 +247,25 @@ public class Lumi {
                     System.out.println("An unexpected error occurred: " + e.getMessage());
                     System.out.println("____________________________________________________________");
                 }
+            } else if (input.startsWith("find ")) {
+                LocalDate date = LocalDate.parse(input.substring(5).trim()); // Parse input date
+                System.out.println("____________________________________________________________");
+                System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+                boolean found = false;
+
+                for (Task task : tasks) {
+                    if (task instanceof Deadline && ((Deadline) task).by.equals(date)) {
+                        System.out.println("  " + task);
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("  No tasks found on this date.");
+                }
+
+                System.out.println("____________________________________________________________");
+
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("    Sorry,I don't understand that command.");

@@ -1,18 +1,20 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FileManager {
-    private static final String FILE_PATH = "./src/main/java/test.txt";
+    private static final String FILE_PATH = "./src/main/java/Lumi.txt";
 
-    // Load tasks from file at startup
+    // Load tasks from file
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
-            // Create the file and parent directories if they don't exist
             try {
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
                 System.out.println("Error creating save file: " + e.getMessage());
@@ -28,7 +30,7 @@ public class FileManager {
                     tasks.add(task);
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | LumiException e) {
             System.out.println("Error loading tasks: File not found.");
         }
 
@@ -55,16 +57,14 @@ public class FileManager {
         String status = task.isDone ? "1" : "0";
 
         if (task instanceof Deadline) {
-            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by;
-        } else if (task instanceof Event) {
-            return type + " | " + status + " | " + task.description + " | " + ((Event) task).from + " | " + ((Event) task).to;
+            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by.toString();
         } else {
             return type + " | " + status + " | " + task.description;
         }
     }
 
     // Parse task from file line
-    private static Task parseTaskFromFile(String line) {
+    private static Task parseTaskFromFile(String line) throws LumiException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
             return null;
@@ -75,26 +75,17 @@ public class FileManager {
         String description = parts[2];
 
         Task task = null;
-        switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length >= 4) {
-                    task = new Deadline(description, parts[3]);
-                }
-                break;
-            case "E":
-                if (parts.length >= 5) {
-                    task = new Event(description, parts[3], parts[4]);
-                }
-                break;
+
+        if ("T".equals(type)) {
+            task = new Todo(description);
+        } else if ("D".equals(type) && parts.length >= 4) {
+            task = new Deadline(description, parts[3]); // Deadline constructor handles errors
         }
 
         if (task != null && isDone) {
             task.markAsDone();
         }
+
         return task;
     }
 }
-
