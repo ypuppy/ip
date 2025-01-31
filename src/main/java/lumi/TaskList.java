@@ -49,6 +49,16 @@ public class TaskList {
         return sb.toString();
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }

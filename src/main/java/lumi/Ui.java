@@ -66,5 +66,12 @@ public class Ui {
         System.out.println(message);
         System.out.println("____________________________________________________________");
     }
+
+    public void showFindResults(String message) {
+        System.out.println("____________________________________________________________");
+        System.out.println(message);
+        System.out.println("____________________________________________________________");
+    }
+
 }
 
