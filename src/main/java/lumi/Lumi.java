@@ -1,11 +1,18 @@
 package lumi;
-
+/**
+ * Represents the main class of the Lumi application, handling initialization and user interactions.
+ */
 public class Lumi {
     private Storage storage;
     private TaskList tasks;
     private Ui ui = new Ui();
     private Parser parser;
 
+    /**
+     * Creates an instance of the Lumi application and loads tasks from the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Lumi(String filePath) {
         this.storage = new Storage(filePath);
 
@@ -18,6 +25,11 @@ public class Lumi {
 
     }
 
+    /**
+     * Runs the Lumi application, processing user commands in a loop until termination.
+     *
+     * @throws LumiException If an error occurs while executing commands.
+     */
     public void run() throws LumiException {
         TaskList tasks = new TaskList(this.storage.loadTasks());
         this.ui.showWelcome(tasks);
@@ -37,6 +49,12 @@ public class Lumi {
         this.ui.showGoodbye();
     }
 
+    /**
+     * The main entry point of the Lumi application.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws LumiException If an error occurs during execution.
+     */
     public static void main(String[] args) throws LumiException {
         (new Lumi("./src/main/java/Lumi.txt")).run();
     }
