@@ -7,38 +7,50 @@ public class Parser {
         String commandWord = words[0];
 
         switch (commandWord) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "todo":
-                if (words.length < 2 || words[1].trim().isEmpty()) {
-                    throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                return new AddCommand(new Todo(words[1].trim()));
-            case "deadline":
-                if (words.length < 2 || !words[1].contains("/by")) {
-                    throw new LumiException("OOPS!!! Deadline task requires a description and a date.");
-                }
-                String[] deadlineParts = words[1].split("/by", 2);
-                return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
-            case "delete":
-                if (words.length < 2) {
-                    throw new LumiException("OOPS!!! Please specify a task number to delete.");
-                }
-                return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
-            case "event":
-                if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
-                    throw new LumiException("OOPS!!! Event must have a description, start time, and end time.");
-                }
-                String[] eventParts = words[1].split("/from", 2);
-                String[] timeParts = eventParts[1].split("/to", 2);
-                return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
-            case "unmark":
-                if (words.length < 2) {
-                    throw new LumiException("OOPS!!! Please specify a task number to unmark.");
-                }
-                return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "todo":
+            if (words.length < 2 || words[1].trim().isEmpty()) {
+                throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            return new AddCommand(new Todo(words[1].trim()));
+        case "deadline":
+            if (words.length < 2 || !words[1].contains("/by")) {
+                throw new LumiException("OOPS!!! Deadline task requires a description and a date.");
+            }
+            String[] deadlineParts = words[1].split("/by", 2);
+            return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+        case "delete":
+            if (words.length < 2) {
+                throw new LumiException("OOPS!!! Please specify a task number to delete.");
+            }
+            return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
+        case "event":
+            if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
+                throw new LumiException("OOPS!!! Event must have a description, start time, and end time.");
+            }
+            String[] eventParts = words[1].split("/from", 2);
+            String[] timeParts = eventParts[1].split("/to", 2);
+            return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
+        case "unmark":
+            if (words.length < 2) {
+                throw new LumiException("OOPS!!! Please specify a task number to unmark.");
+            }
+            return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
+
+        case "find":
+            if (words.length < 2 || words[1].trim().isEmpty()) {
+                throw new LumiException("OOPS!!! Please provide a keyword to search for.");
+            }
+            return new FindCommand(words[1].trim());
+        case "mark":
+            if (words.length < 2) {
+                throw new LumiException("OOPS!!! Please specify a task number to mark.");
+            }
+            return new MarkCommand(Integer.parseInt(words[1].trim()) - 1);
+
             default:
                 throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }
