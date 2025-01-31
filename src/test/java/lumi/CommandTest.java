@@ -66,4 +66,33 @@ class CommandTest {
         String output = outputStream.toString().trim();
         assertTrue(output.contains("Bye. Hope to see you again soon!"), "Bye command should display exit message.");
     }
+    @Test
+    void testDeleteTask() throws LumiException {
+        tasks.addTask(new Todo("Read a book"), ui, storage);
+        tasks.addTask(new Deadline("Submit report", "2023-12-10"), ui, storage);
+        assertEquals(2, tasks.size(), "There should be 2 tasks before deletion.");
+
+        tasks.deleteTask(0, ui, storage); // Delete first task
+        assertEquals(1, tasks.size(), "There should be 1 task left after deletion.");
+        assertFalse(tasks.listTasks().contains("Read a book"), "Deleted task should not be in the list.");
+    }
+
+    @Test
+    void testDeleteInvalidTask() {
+        Exception exception = assertThrows(LumiException.class, () -> tasks.deleteTask(5, ui, storage));
+        assertTrue(exception.getMessage().contains("Invalid task number"), "Exception should indicate invalid task number.");
+    }
+
+    @Test
+    void testUnmarkTask() throws LumiException {
+        Todo todo = new Todo("Finish homework");
+        tasks.addTask(todo, ui, storage);
+        todo.markAsDone(); // First mark as done
+        assertEquals("[T][X] Finish homework", todo.toString(), "Task should be marked as done.");
+
+        todo.unmark(); // Then unmark it
+        assertEquals("[T][ ] Finish homework", todo.toString(), "Task should be marked as not done after unmarking.");
+    }
 }
+
+
