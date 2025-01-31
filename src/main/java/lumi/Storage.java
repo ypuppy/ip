@@ -4,13 +4,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks to a file for persistence.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Initializes a Storage instance with the specified file path.
+     *
+     * @param filePath The file path to store and retrieve tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
     // Load tasks from file
+
+    /**
+     * Loads tasks from the file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws LumiException If an error occurs while parsing the file contents.
+     */
     public ArrayList<Task> loadTasks() throws LumiException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -41,6 +56,12 @@ public class Storage {
     }
 
     // Save tasks to file
+
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
@@ -53,6 +74,13 @@ public class Storage {
     }
 
     // Convert Task object to string format for file storage
+
+    /**
+     * Converts a Task object into a formatted string for file storage.
+     *
+     * @param task The task to format.
+     * @return A formatted string representation of the task.
+     */
     private String formatTaskForFile(Task task) {
         String type = task instanceof Todo ? "T" :
                 task instanceof Deadline ? "D" :
@@ -67,6 +95,14 @@ public class Storage {
     }
 
     // Parse task from file line
+
+    /**
+     * Parses a task from a line in the file.
+     *
+     * @param line The line containing task data.
+     * @return The corresponding Task object or null if the line is invalid.
+     * @throws LumiException If an error occurs while creating a task.
+     */
     private static Task parseTaskFromFile(String line) throws LumiException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
