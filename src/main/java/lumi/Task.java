@@ -34,6 +34,7 @@ public class Task {
      * @return "X" if the task is done, otherwise a space character.
      */
     public String getStatusIcon() {
+
         return (isDone ? "X" : " "); // mark done task with X
     }
 
