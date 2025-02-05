@@ -35,7 +35,7 @@ public class Lumi {
         this.ui.showWelcome(tasks);
         boolean isRunning = true;
 
-        while(isRunning) {
+        while (isRunning) {
             String input = this.ui.readCommand();
 
             try {
@@ -56,7 +56,7 @@ public class Lumi {
      * @throws LumiException If an error occurs during execution.
      */
     public static void main(String[] args) throws LumiException {
-        (new Lumi("./src/main/java/Lumi.txt")).run();
+        new Lumi("./src/main/java/Lumi.txt").run();
     }
 }
 

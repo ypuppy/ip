@@ -1,6 +1,11 @@
 package lumi;
 
-import java.io.*;
+//import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,9 +87,9 @@ public class Storage {
      * @return A formatted string representation of the task.
      */
     private String formatTaskForFile(Task task) {
-        String type = task instanceof Todo ? "T" :
-                task instanceof Deadline ? "D" :
-                        task instanceof Event ? "E" : "?";
+        String type = task instanceof Todo ? "T"
+                : task instanceof Deadline ? "D"
+                        : task instanceof Event ? "E" : "?";
         String status = task.isDone ? "1" : "0";
 
         if (task instanceof Deadline) {
