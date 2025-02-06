@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    private String lastMessage = "";
 
     /**
      * Initializes the UI with a new scanner for reading user input.
@@ -99,6 +100,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+        lastMessage = message;
     }
 
     /**
@@ -110,7 +112,16 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+        lastMessage = message;
     }
 
+    /**
+     * Retrieves the last displayed message.
+     *
+     * @return The last stored message.
+     */
+    public String getLastMessage() {
+        return lastMessage;
+    }
 }
 

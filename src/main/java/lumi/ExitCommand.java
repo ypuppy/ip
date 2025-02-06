@@ -6,7 +6,7 @@ package lumi;
 public class ExitCommand extends Command {
     @Override
 
-    /**
+    /*
      * Executes the exit command by saving tasks and displaying a goodbye message.
      *
      * @param tasks The task list to save before exiting.
@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
      * @throws LumiException If an error occurs while saving tasks.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LumiException {
-        storage.saveTasks(tasks.getTasks());  // Save before exiting
+        storage.saveTasks(tasks.getTasks());
         ui.showGoodbye();
     }
 
@@ -26,7 +26,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return true;  // Signals program termination
+        return true;
     }
 }
 

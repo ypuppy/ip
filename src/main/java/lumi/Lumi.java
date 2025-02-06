@@ -50,6 +50,21 @@ public class Lumi {
     }
 
     /**
+     * Processes user input and returns a response string.
+     *
+     * @param input The user input.
+     * @return The response string.
+     */
+    public String getResponse(String input) {
+        try {
+            Parser.parse(input).execute(tasks, ui, storage);
+            return ui.getLastMessage(); // Assuming Ui has a method to get the last output.
+        } catch (LumiException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * The main entry point of the Lumi application.
      *
      * @param args Command-line arguments (not used).
