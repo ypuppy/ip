@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    private String lastMessage = "";
 
     /**
      * Initializes the UI with a new scanner for reading user input.
@@ -41,9 +42,6 @@ public class Ui {
         } else {
             System.out.println("No saved tasks found.");
         }
-
-
-
     }
 
     /**
@@ -70,6 +68,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+        lastMessage = "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -77,6 +76,7 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("Error loading tasks. Starting with an empty list.");
+        lastMessage = "Error loading tasks. Starting with an empty list.";
     }
 
     /**
@@ -88,6 +88,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("OOPS!!! " + message);
         System.out.println("____________________________________________________________");
+        lastMessage = "OOPS!!!" + message;
     }
 
     /**
@@ -99,6 +100,7 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+        lastMessage = message;
     }
 
     /**
@@ -110,7 +112,16 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+        lastMessage = message;
     }
 
+    /**
+     * Retrieves the last displayed message.
+     *
+     * @return The last stored message.
+     */
+    public String getLastMessage() {
+        return lastMessage;
+    }
 }
 

@@ -19,6 +19,6 @@ public abstract class Command {
      * @return {@code false} by default; should be overridden by ExitCommand to return {@code true}.
      */
     public boolean isExit() {
-        return false;  // Default is false; overridden by ExitCommand.
+        return false;
     }
 }

@@ -1,12 +1,16 @@
 package lumi;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 /**
  * Represents a command to exit the application.
  */
 public class ExitCommand extends Command {
     @Override
 
-    /**
+    /*
      * Executes the exit command by saving tasks and displaying a goodbye message.
      *
      * @param tasks The task list to save before exiting.
@@ -15,8 +19,11 @@ public class ExitCommand extends Command {
      * @throws LumiException If an error occurs while saving tasks.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LumiException {
-        storage.saveTasks(tasks.getTasks());  // Save before exiting
+        storage.saveTasks(tasks.getTasks());
         ui.showGoodbye();
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 
     /**
@@ -26,7 +33,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
-        return true;  // Signals program termination
+        return true;
     }
 }
 

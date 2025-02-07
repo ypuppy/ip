@@ -89,8 +89,11 @@ public class TaskList {
      * @return A formatted string listing all tasks, or a message if the list is empty.
      */
     public String listTasks() {
-        if (tasks.isEmpty()) return "Your list is empty!";
-        StringBuilder sb = new StringBuilder("Here are your tasks:\n");
+        if (tasks.isEmpty()) {
+            return "Your list is empty!";
+        }
+
+        StringBuilder sb = new StringBuilder("");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append("    ").append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
