@@ -23,11 +23,26 @@ public class MainWindow extends AnchorPane {
     private Lumi lumi;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/image/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/image/bot.png"));
+    private Image lumiImage = new Image(this.getClass().getResourceAsStream("/image/bot.png"));
 
+    /**
+     * initialize the MainWindow to show the welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        showWelcomeMessage();
+    }
+
+
+    /**
+     * Displays a welcome message from Lumi in the dialog box when the application starts.
+     */
+    private void showWelcomeMessage() {
+        String welcomeMessage = "Hello! I'm Lumi.\nHow can I assist you today?";
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeMessage, lumiImage)
+        );
     }
 
     /** Injects the Duke instance */
@@ -45,7 +60,7 @@ public class MainWindow extends AnchorPane {
         String response = lumi.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, lumiImage)
         );
         userInput.clear();
     }

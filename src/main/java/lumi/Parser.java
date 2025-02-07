@@ -60,6 +60,8 @@ public class Parser {
                 throw new LumiException("OOPS!!! Please specify a task number to mark.");
             }
             return new MarkCommand(Integer.parseInt(words[1].trim()) - 1);
+        case"hi":
+            return new WelcomeCommand();
         default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
             //default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }

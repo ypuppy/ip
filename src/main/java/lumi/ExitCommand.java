@@ -1,5 +1,9 @@
 package lumi;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 /**
  * Represents a command to exit the application.
  */
@@ -17,6 +21,9 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LumiException {
         storage.saveTasks(tasks.getTasks());
         ui.showGoodbye();
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 
     /**
