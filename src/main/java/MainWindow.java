@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Lumi lumi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/image/user.png"));
-    private Image lumiImage = new Image(this.getClass().getResourceAsStream("/image/bot.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/image/user1.png"));
+    private Image lumiImage = new Image(this.getClass().getResourceAsStream("/image/bot2.png"));
 
     /**
      * initialize the MainWindow to show the welcome message

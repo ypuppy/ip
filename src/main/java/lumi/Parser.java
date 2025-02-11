@@ -67,8 +67,6 @@ public class Parser {
         }
     }
 
-    // Processes the command and execserutes it
-
     /**
      * Processes the user command and executes it.
      *
