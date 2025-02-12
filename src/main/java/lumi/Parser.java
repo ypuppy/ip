@@ -27,7 +27,6 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
-         
             assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
             if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
@@ -45,16 +44,13 @@ public class Parser {
             String[] deadlineParts = words[1].split("/by", 2);
             return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
         case "delete":
-            
             assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Delete command must have a task number";
             if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND) {
                 throw new LumiException("OOPS!!! Please specify a task number to delete.");
             }
             return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
         case "event":
-            
             assert words.length < MIN_WORD_LENGTH_FOR_EVENT : "Event command no description";
-            
             if (words.length < MIN_WORD_LENGTH_FOR_EVENT || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Event must have a description and date");
             } else if (!words[2].contains("/from") || !words[3].contains("/to")) {
