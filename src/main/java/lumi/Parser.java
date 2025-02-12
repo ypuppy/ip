@@ -23,22 +23,27 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
+            assert words.length >= 2 : "Todo command must have a description"; // Ensure todo has a description
             if (words.length < 2 || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
             }
             return new AddCommand(new Todo(words[1].trim()));
         case "deadline":
+            assert words.length >= 2 && words[1].contains("/by")
+                    : "Deadline command must have a description and a deadline";
             if (words.length < 2 || !words[1].contains("/by")) {
                 throw new LumiException("OOPS!!! Deadline task requires a description and a date.");
             }
             String[] deadlineParts = words[1].split("/by", 2);
             return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
         case "delete":
+            assert words.length >= 2 : "Delete command must have a task number";
             if (words.length < 2) {
                 throw new LumiException("OOPS!!! Please specify a task number to delete.");
             }
             return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
         case "event":
+            assert words.length >= 2 : "Event command no description";
             if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
                 throw new LumiException("OOPS!!! Event must have a description, start time, and end time.");
             }
@@ -46,16 +51,19 @@ public class Parser {
             String[] timeParts = eventParts[1].split("/to", 2);
             return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
         case "unmark":
+            assert words.length >= 2 : "no task number provided";
             if (words.length < 2) {
                 throw new LumiException("OOPS!!! Please specify a task number to unmark.");
             }
             return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
         case "find":
+            assert words.length >= 2 : "no input provided";
             if (words.length < 2 || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please provide a keyword to search for.");
             }
             return new FindCommand(words[1].trim());
         case "mark":
+            assert words.length >= 2 : "no task number provided";
             if (words.length < 2) {
                 throw new LumiException("OOPS!!! Please specify a task number to mark.");
             }
@@ -66,8 +74,6 @@ public class Parser {
             //default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }
     }
-
-    // Processes the command and execserutes it
 
     /**
      * Processes the user command and executes it.
@@ -80,6 +86,10 @@ public class Parser {
      * @throws LumiException If an error occurs while processing the command.
      */
     public static boolean processCommand(String input, TaskList tasks, Ui ui, Storage storage) throws LumiException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+
         Command command = parse(input);
         command.execute(tasks, ui, storage);
         return !command.isExit(); // If ExitCommand is executed, this will return false and stop the loop.
