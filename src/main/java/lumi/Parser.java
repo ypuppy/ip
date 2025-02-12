@@ -4,7 +4,11 @@ package lumi;
  * Parses user input and processes commands in the Lumi application.
  */
 public class Parser {
-    // Parses user input and returns a corresponding Command object
+    private static final int MIN_DATE_LENGTH = 10;
+    private static final int MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND = 2;
+    private static final int MIN_WORD_LENGTH_FOR_DEADLINE = 3;
+    private static final int MIN_WORD_LENGTH_FOR_EVENT = 4;
+
 
     /**
      * Parses the user input and returns a corresponding Command object.
@@ -14,7 +18,7 @@ public class Parser {
      * @throws LumiException If the input is invalid or missing required details.
      */
     public static Command parse(String input) throws LumiException {
-        String[] words = input.split(" ", 2);
+        String[] words = input.split(" ");
         String commandWord = words[0];
 
         switch (commandWord) {
@@ -23,29 +27,38 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
-            assert words.length >= 2 : "Todo command must have a description"; // Ensure todo has a description
-            if (words.length < 2 || words[1].trim().isEmpty()) {
+         
+            assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
+            if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
             }
             return new AddCommand(new Todo(words[1].trim()));
         case "deadline":
-            assert words.length >= 2 && words[1].contains("/by")
+
+            assert words.length < MIN_WORD_LENGTH_FOR_DEADLINE
                     : "Deadline command must have a description and a deadline";
-            if (words.length < 2 || !words[1].contains("/by")) {
+            if (words.length < MIN_WORD_LENGTH_FOR_DEADLINE || words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Deadline task requires a description and a date.");
+            } else if (!words[2].contains("/by") || words[2].length() < MIN_DATE_LENGTH ) {
+                throw new LumiException("OOPS!!! Deadline task needs date.");
             }
             String[] deadlineParts = words[1].split("/by", 2);
             return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
         case "delete":
-            assert words.length >= 2 : "Delete command must have a task number";
-            if (words.length < 2) {
+            
+            assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Delete command must have a task number";
+            if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND) {
                 throw new LumiException("OOPS!!! Please specify a task number to delete.");
             }
             return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
         case "event":
-            assert words.length >= 2 : "Event command no description";
-            if (words.length < 2 || !words[1].contains("/from") || !words[1].contains("/to")) {
-                throw new LumiException("OOPS!!! Event must have a description, start time, and end time.");
+            
+            assert words.length < MIN_WORD_LENGTH_FOR_EVENT : "Event command no description";
+            
+            if (words.length < MIN_WORD_LENGTH_FOR_EVENT || words[1].trim().isEmpty()) {
+                throw new LumiException("OOPS!!! Event must have a description and date");
+            } else if (!words[2].contains("/from") || !words[3].contains("/to")) {
+                throw new LumiException("OOPS!!! Event must have a date");
             }
             String[] eventParts = words[1].split("/from", 2);
             String[] timeParts = eventParts[1].split("/to", 2);
