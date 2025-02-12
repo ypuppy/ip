@@ -24,7 +24,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by); // Convert String to LocalDate
         } catch (DateTimeParseException e) {
-            throw new LumiException("OOPS!!! Invalid date format. Please use yyyy-MM-dd (e.g., 2019-12-02).");
+            throw new LumiException("Please use yyyy-MM-dd (e.g., 2019-12-02).");
         }
     }
 
