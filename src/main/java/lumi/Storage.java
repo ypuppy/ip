@@ -1,6 +1,5 @@
 package lumi;
 
-//import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -94,13 +93,17 @@ public class Storage {
         String tag = task.getTag().isEmpty() ? "" : " | #" + task.getTag();
 
         if (task instanceof Deadline) {
-            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by.toString() + tag;
+            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by + tag;
+        } else if (task instanceof Event) {
+            return type + " | " + status + " | " + task.description + " | "
+                    + ((Event) task).from.toString() + " | " + ((Event) task).to.toString() + tag;
+
         } else {
             return type + " | " + status + " | " + task.description + tag;
         }
     }
 
-    // Parse task from file line
+
 
     /**
      * Parses a task from a line in the file.
@@ -121,10 +124,22 @@ public class Storage {
 
         Task task = null;
 
-        if ("T".equals(type)) {
+        switch (type) {
+        case "T":
             task = new Todo(description);
-        } else if ("D".equals(type) && parts.length >= 4) {
-            task = new Deadline(description, parts[3]); // Deadline constructor handles errors
+            break;
+        case "D":
+            if (parts.length >= 4) {
+                task = new Deadline(description, parts[3]); // parts[3] is the deadline date
+            }
+            break;
+        case "E":
+            if (parts.length >= 5) {
+                task = new Event(description, parts[3], parts[4]); // parts[3] is "from", parts[4] is "to"
+            }
+            break;
+        default:
+            return null; // Unknown task type
         }
 
         if (task != null && isDone) {

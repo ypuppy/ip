@@ -8,6 +8,7 @@ import javafx.util.Duration;
  * Represents a command to exit the application.
  */
 public class ExitCommand extends Command {
+    private static final int DELAY = 1;
     @Override
 
     /*
@@ -21,7 +22,7 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LumiException {
         storage.saveTasks(tasks.getTasks());
         ui.showGoodbye();
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        PauseTransition delay = new PauseTransition(Duration.seconds(DELAY));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
