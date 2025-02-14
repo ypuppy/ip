@@ -91,11 +91,12 @@ public class Storage {
                 : task instanceof Deadline ? "D"
                         : task instanceof Event ? "E" : "?";
         String status = task.isDone ? "1" : "0";
+        String tag = task.getTag().isEmpty() ? "" : " | #" + task.getTag();
 
         if (task instanceof Deadline) {
-            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by.toString();
+            return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by.toString() + tag;
         } else {
-            return type + " | " + status + " | " + task.description;
+            return type + " | " + status + " | " + task.description + tag;
         }
     }
 
@@ -128,6 +129,11 @@ public class Storage {
 
         if (task != null && isDone) {
             task.markAsDone();
+        }
+
+        // Load tag if present
+        if (parts.length >= 6 && parts[5].startsWith("#")) {
+            task.setTag(parts[5].substring(1)); // Remove '#' before storing
         }
 
         return task;

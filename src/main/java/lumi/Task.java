@@ -2,12 +2,15 @@
 
 package lumi;
 
+import java.util.Optional;
+
 /**
  * Represents a task with a description and completion status.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Optional<String> tag = Optional.empty();
 
     /**
      * Creates a new task with the given description.
@@ -53,11 +56,29 @@ public class Task {
     }
 
     /**
+     * Tag an description
+     * @param tag
+     */
+    public void setTag(String tag) {
+        this.tag = Optional.of(tag);
+    }
+
+    /**
+     * Get the tag
+     * return empty is user did not set tag
+     * @return
+     */
+    public String getTag() {
+        return tag.orElse("");
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String tagString = tag.map(t -> " #" + t).orElse("");
+        return "[" + getStatusIcon() + "] " + description + tagString;
     }
 }
 

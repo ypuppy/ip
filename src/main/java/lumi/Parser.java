@@ -60,6 +60,19 @@ public class Parser {
                 throw new LumiException("OOPS!!! Please specify a task number to mark.");
             }
             return new MarkCommand(Integer.parseInt(words[1].trim()) - 1);
+        case "tag":
+            String[] tagParts = words[1].split("#", 2);
+            if (tagParts.length < 2 || !tagParts[1].startsWith("#")) {
+                throw new LumiException("tag 4 #fun).");
+            }
+
+            try {
+                int taskNumber = Integer.parseInt(tagParts[0]) - 1;
+                String tag = tagParts[1].substring(1).trim(); // Remove '#' before storing
+                return new TagCommand(taskNumber, tag);
+            } catch (NumberFormatException e) {
+                throw new LumiException("OOPS!!! Task number must be a valid number.");
+            }
         case"hi":
             return new WelcomeCommand();
         default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
