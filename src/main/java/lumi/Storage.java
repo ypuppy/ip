@@ -95,7 +95,7 @@ public class Storage {
             return type + " | " + status + " | " + task.description + " | " + ((Deadline) task).by;
         } else if (task instanceof Event) {
             return type + " | " + status + " | " + task.description + " | "
-                    + ((Event) task).from + " | " + ((Event) task).to;
+                    + ((Event) task).from.toString() + " | " + ((Event) task).to.toString();
         } else {
             return type + " | " + status + " | " + task.description;
         }

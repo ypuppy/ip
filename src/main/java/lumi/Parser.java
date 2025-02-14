@@ -1,13 +1,13 @@
 package lumi;
 
+import java.util.Set;
+
 /**
  * Parses user input and processes commands in the Lumi application.
  */
 public class Parser {
-    private static final int MIN_DATE_LENGTH = 10;
     private static final int MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND = 2;
-    private static final int MIN_WORD_LENGTH_FOR_DEADLINE = 3;
-    private static final int MIN_WORD_LENGTH_FOR_EVENT = 4;
+    private static final Set<String> SINGLE_WORD_COMMANDS = Set.of("bye", "list", "hi");
 
 
     /**
@@ -18,62 +18,65 @@ public class Parser {
      * @throws LumiException If the input is invalid or missing required details.
      */
     public static Command parse(String input) throws LumiException {
-        String[] words = input.split(" ");
+        String[] words = input.split("\\s+", 2);
         String commandWord = words[0];
 
+        assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
+        if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND && !SINGLE_WORD_COMMANDS.contains(commandWord)) {
+            throw new LumiException("what do i need to do for the command?");
+        }
         switch (commandWord) {
         case "bye":
             return new ExitCommand();
         case "list":
             return new ListCommand();
         case "todo":
-            assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
-            if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND || words[1].trim().isEmpty()) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
             }
             return new AddCommand(new Todo(words[1].trim()));
         case "deadline":
-
-            assert words.length < MIN_WORD_LENGTH_FOR_DEADLINE
-                    : "Deadline command must have a description and a deadline";
-            if (words.length < MIN_WORD_LENGTH_FOR_DEADLINE || words[1].trim().isEmpty()) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Deadline task requires a description and a date.");
-            } else if (!words[2].contains("/by") || words[2].length() < MIN_DATE_LENGTH ) {
-                throw new LumiException("OOPS!!! Deadline task needs date.");
             }
             String[] deadlineParts = words[1].split("/by", 2);
+            if (deadlineParts[1].isEmpty()) {
+                throw new LumiException("OOPS!!! Deadline task needs date.");
+            }
             return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
         case "delete":
-            assert words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Delete command must have a task number";
-            if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please specify a task number to delete.");
             }
             return new DeleteCommand(Integer.parseInt(words[1].trim()) - 1);
         case "event":
-            assert words.length < MIN_WORD_LENGTH_FOR_EVENT : "Event command no description";
-            if (words.length < MIN_WORD_LENGTH_FOR_EVENT || words[1].trim().isEmpty()) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Event must have a description and date");
-            } else if (!words[2].contains("/from") || !words[3].contains("/to")) {
-                throw new LumiException("OOPS!!! Event must have a date");
+            } else if (!words[1].contains("/from") || !words[1].contains("/to")) {
+                throw new LumiException("OOPS!!! Event must have a start date and an end date");
             }
             String[] eventParts = words[1].split("/from", 2);
             String[] timeParts = eventParts[1].split("/to", 2);
+            if (eventParts[0].isEmpty()) {
+                throw new LumiException("what is the event about?");
+            } else if (eventParts[1].isEmpty()) {
+                throw new LumiException("when will the event start?");
+            } else if (timeParts[1].isEmpty()) {
+                throw new LumiException("when will the event when?");
+            }
             return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
         case "unmark":
-            assert words.length >= 2 : "no task number provided";
-            if (words.length < 2) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please specify a task number to unmark.");
             }
             return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
         case "find":
-            assert words.length >= 2 : "no input provided";
-            if (words.length < 2 || words[1].trim().isEmpty()) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please provide a keyword to search for.");
             }
             return new FindCommand(words[1].trim());
         case "mark":
-            assert words.length >= 2 : "no task number provided";
-            if (words.length < 2) {
+            if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please specify a task number to mark.");
             }
             return new MarkCommand(Integer.parseInt(words[1].trim()) - 1);

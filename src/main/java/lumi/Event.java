@@ -1,11 +1,15 @@
 package lumi;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents an event task with a specific start and end time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
     /**
      * Creates an Event task with a description, start time, and end time.
@@ -14,10 +18,15 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws LumiException {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new LumiException("Please use yyyy-MM-dd for event dates (e.g., 2019-12-02).");
+        }
+
     }
 
     /**
@@ -25,6 +34,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: "
+                + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: "
+                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
