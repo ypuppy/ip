@@ -19,6 +19,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        String tagString = getTag().isEmpty() ? "" : " #" + getTag();
+        return "[T]" + super.toString() + tagString;
     }
 }

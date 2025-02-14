@@ -33,7 +33,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        String tagString = getTag().isEmpty() ? "" : " #" + getTag();
         // Format LocalDate as "MMM dd yyyy" (e.g., "Dec 02 2019")
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")"
+                + tagString;
     }
 }

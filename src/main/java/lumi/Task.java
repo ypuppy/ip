@@ -78,7 +78,7 @@ public class Task {
     @Override
     public String toString() {
         String tagString = tag.map(t -> " #" + t).orElse("");
-        return "[" + getStatusIcon() + "] " + description + tagString;
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
 

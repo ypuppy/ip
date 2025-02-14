@@ -34,9 +34,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        String tagString = getTag().isEmpty() ? "" : " #" + getTag();
         return "[E]" + super.toString() + " (from: "
                 + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 + " to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")"
+                + tagString;
     }
 }
