@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -34,6 +35,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        HBox.setMargin(displayPicture, new Insets(0, 10, 0, 0));
+
+        dialog.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 5px;");
     }
 
     /**
@@ -45,14 +50,34 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-
+    /*
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var dbu = new DialogBox(text, img);
+        return dbu;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getLumiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
+*/
+    public static DialogBox getUserDialog(String text, Image img) {
+        var dbu = new DialogBox(text, img);
+        dbu.getStyleClass().add("user-dialog");
+        return dbu;
+    }
+
+    public static DialogBox getLumiDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.getStyleClass().add("lumi-dialog");
+        db.flip();
+        return db;
+    }
+
+
+
+
+
+
 }

@@ -19,6 +19,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Button scrollDownButton;
 
     private Lumi lumi;
 
@@ -31,7 +33,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
+            boolean isAtBottom = (double) newValue == 1.0;
+            scrollDownButton.setVisible(!isAtBottom);
+        });
         showWelcomeMessage();
+
     }
 
 
@@ -41,7 +48,7 @@ public class MainWindow extends AnchorPane {
     private void showWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Lumi.\nHow can I assist you today?";
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(welcomeMessage, lumiImage)
+                DialogBox.getLumiDialog(welcomeMessage, lumiImage)
         );
     }
 
@@ -60,8 +67,14 @@ public class MainWindow extends AnchorPane {
         String response = lumi.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, lumiImage)
+                DialogBox.getLumiDialog(response, lumiImage)
         );
         userInput.clear();
+        scrollToBottom();
+    }
+
+    @FXML
+    private void scrollToBottom() {
+        scrollPane.setVvalue(1.0);
     }
 }
