@@ -22,8 +22,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private ImageView memeImage;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, Image meme) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -33,6 +35,13 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        dialog.setText(text);
+        displayPicture.setImage(img);
+        if (meme != null) {
+            memeImage.setImage(meme);
+        } else {
+            memeImage.setVisible(false);
+        }
         dialog.setText(text);
         displayPicture.setImage(img);
 
@@ -63,13 +72,20 @@ public class DialogBox extends HBox {
     }
 */
     public static DialogBox getUserDialog(String text, Image img) {
-        var dbu = new DialogBox(text, img);
+        var dbu = new DialogBox(text, img, null);
         dbu.getStyleClass().add("user-dialog");
         return dbu;
     }
 
+    public static DialogBox getLumiDialog(String text, Image img, Image meme) {
+        var db = new DialogBox(text, img, meme);
+        db.getStyleClass().add("lumi-dialog");
+        db.flip();
+        return db;
+    }
+
     public static DialogBox getLumiDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, null);
         db.getStyleClass().add("lumi-dialog");
         db.flip();
         return db;

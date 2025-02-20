@@ -21,9 +21,8 @@ public class Parser {
         String[] words = input.split("\\s+", 2);
         String commandWord = words[0];
 
-        assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
         if (words.length < MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND && !SINGLE_WORD_COMMANDS.contains(commandWord)) {
-            throw new LumiException("what do i need to do for the command?");
+            throw new LumiException("Hrm.. what exactly do i need to do for the command?");
         }
         switch (commandWord) {
         case "bye":
@@ -31,6 +30,7 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
+            assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "Todo command must have a description";
             if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! The description of a todo cannot be empty.");
             }
@@ -97,7 +97,7 @@ public class Parser {
             }
         case"hi":
             return new WelcomeCommand();
-        default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
+        default: throw new LumiException("Hrmm.. I don't understand that command.");
             //default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }
     }

@@ -29,18 +29,18 @@ public class Ui {
                 + "|____/ \\__,_|_|      |_|______|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Lumi");
-        System.out.println("What can I do for you?");
+        System.out.println("HELLO! I'm Lumi~ \uD83D\uDC85");
+        System.out.println("What can I help you?");
         System.out.println("____________________________________________________________");
         if (!tasks.isEmpty()) {
-            System.out.println("Previously saved tasks:");
+            System.out.println("You have saved these tasks Previously!: ");
             System.out.println("____________________________________________________________");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println("    " + (i + 1) + ". " + tasks.get(i));
             }
             System.out.println("____________________________________________________________");
         } else {
-            System.out.println("No saved tasks found.");
+            System.out.println("You dont have anything in the file T^T.");
         }
     }
 
@@ -66,9 +66,9 @@ public class Ui {
      */
     public void showGoodbye() {
         System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Well Okay.. Hope to see you again soon T^T");
         System.out.println("____________________________________________________________");
-        lastMessage = "Bye. Hope to see you again soon!";
+        lastMessage = "Well Okay.. Hope to see you again soon T^T";
     }
 
     /**

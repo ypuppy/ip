@@ -1,18 +1,16 @@
 package lumi;
 
-import lumi.TaskList;
-import lumi.Ui;
-import lumi.Storage;
-import lumi.Todo;
-import lumi.FindCommand;
-import lumi.LumiException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+
 
 class FindCommandTest {
     private Ui ui;

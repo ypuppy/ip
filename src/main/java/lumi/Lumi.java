@@ -58,7 +58,7 @@ public class Lumi {
     public String getResponse(String input) {
         try {
             Parser.parse(input).execute(tasks, ui, storage);
-            return ui.getLastMessage(); // Assuming Ui has a method to get the last output.
+            return ui.getLastMessage();
         } catch (LumiException e) {
             return e.getMessage();
         }
