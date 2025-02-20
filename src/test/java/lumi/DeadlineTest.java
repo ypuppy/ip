@@ -30,14 +30,14 @@ class DeadlineTest {
     @Test
     void testInvalidDateFormat() {
         Exception exception = assertThrows(LumiException.class, () -> new Deadline("Invalid date test", "15-10-2023"));
-        assertTrue(exception.getMessage().contains("OOPS!!! Invalid date format"),
+        assertTrue(exception.getMessage().contains("OOPS.. Sorry..Please use yyyy-MM-dd (e.g., 2019-12-02)."),
                 "Exception should indicate invalid date format.");
     }
 
     @Test
     void testInvalidEmptyDate() {
         Exception exception = assertThrows(LumiException.class, () -> new Deadline("Empty date test", ""));
-        assertTrue(exception.getMessage().contains("OOPS!!! Invalid date format"),
+        assertTrue(exception.getMessage().contains("OOPS.. Sorry..Please use yyyy-MM-dd (e.g., 2019-12-02)."),
                 "Exception should be thrown for empty date.");
     }
 

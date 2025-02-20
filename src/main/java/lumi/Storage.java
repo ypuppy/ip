@@ -153,4 +153,15 @@ public class Storage {
 
         return task;
     }
+    /**
+     * Clears all tasks from storage by overwriting the file with an empty content.
+     */
+    public void clearTasks() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            writer.write(""); // Overwrite file with empty content
+        } catch (IOException e) {
+            System.out.println("Error clearing tasks: " + e.getMessage());
+        }
+    }
+
 }

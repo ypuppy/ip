@@ -7,7 +7,7 @@ import java.util.Set;
  */
 public class Parser {
     private static final int MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND = 2;
-    private static final Set<String> SINGLE_WORD_COMMANDS = Set.of("bye", "list", "hi");
+    private static final Set<String> SINGLE_WORD_COMMANDS = Set.of("bye", "list", "hi", "clear");
 
 
     /**
@@ -97,6 +97,9 @@ public class Parser {
             }
         case"hi":
             return new WelcomeCommand();
+
+        case"clear":
+            return new ClearCommand();
         default: throw new LumiException("Hrmm.. I don't understand that command.");
             //default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }

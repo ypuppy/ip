@@ -24,7 +24,7 @@ public class Event extends Task {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
         } catch (DateTimeParseException e) {
-            throw new LumiException("Please use yyyy-MM-dd for event dates (e.g., 2019-12-02).");
+            throw new LumiException("OOPS.. Sorry..Please use yyyy-MM-dd (e.g., 2019-12-02).");
         }
 
     }

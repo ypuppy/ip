@@ -45,7 +45,7 @@ class CommandTest {
     @Test
     void testListCommandEmpty() {
         tasks = new TaskList();
-        String expectedMessage = "Your list is empty!";
+        String expectedMessage = "OOPS! Your list is empty!";
         assertEquals(expectedMessage, tasks.listTasks(), "List command should return empty list message.");
     }
 
@@ -82,10 +82,11 @@ class CommandTest {
     @Test
     void testDeleteInvalidTask() {
         Exception exception = assertThrows(LumiException.class, () -> tasks.deleteTask(5, ui, storage));
-        assertTrue(exception.getMessage().contains("OOPS!!! The task number provided is invalid."),
+        assertTrue(exception.getMessage().contains("OH NO..The task number provided is invalid."),
                 "Exception should indicate invalid task number.");
     }
 
+    //handles both mark and unmark test
     @Test
     void testUnmarkTask() throws LumiException {
         Todo todo = new Todo("Finish homework");

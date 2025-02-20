@@ -85,7 +85,7 @@ public class MainWindow extends AnchorPane {
         }
         if (response.contains("OH NO!") || response.contains("OOPS!")) {
             selectedMeme = new Image(getClass().getResourceAsStream("/image/meme8.png"));
-        } else if (response.contains("Hrm..")) {
+        } else if (response.contains("Hrm..") || response.contains("Hrmm")) {
             selectedMeme = new Image(getClass().getResourceAsStream("/image/meme5.png"));
         }
         dialogContainer.getChildren().addAll(

@@ -76,7 +76,7 @@ public class TaskList {
      */
     public void deleteTask(int index, Ui ui, Storage storage) throws LumiException {
         if (index < 0 || index >= tasks.size()) {
-            throw new LumiException("Invalid task number.");
+            throw new LumiException("OH NO..The task number provided is invalid.");
         }
         Task removed = tasks.remove(index);
         storage.saveTasks(tasks);
@@ -90,7 +90,7 @@ public class TaskList {
      */
     public String listTasks() {
         if (tasks.isEmpty()) {
-            return "Your list is empty!";
+            return "OOPS! Your list is empty!";
         }
 
         StringBuilder sb = new StringBuilder("");
@@ -124,5 +124,18 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    /**
+     * Clears all tasks from the list and updates storage.
+     *
+     * @param ui The UI instance for displaying messages.
+     * @param storage The storage instance to update the saved task list.
+     */
+    public void clear(Ui ui, Storage storage) {
+        tasks.clear(); // Clear all tasks from memory
+        storage.clearTasks(); // Clear the saved file
+        ui.showMessage("Got it! Your task list has been cleared!");
+    }
+
 }
 
