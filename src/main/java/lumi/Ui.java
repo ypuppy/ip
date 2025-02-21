@@ -29,11 +29,11 @@ public class Ui {
                 + "|____/ \\__,_|_|      |_|______|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println("HELLO! I'm Lumi~ \uD83D\uDC85");
+        System.out.println("HELLO! I'm Lumi~");
         System.out.println("What can I help you?");
         System.out.println("____________________________________________________________");
         if (!tasks.isEmpty()) {
-            System.out.println("You have saved these tasks Previously!: ");
+            System.out.println("You have saved these tasks Previously!:");
             System.out.println("____________________________________________________________");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println("    " + (i + 1) + ". " + tasks.get(i));

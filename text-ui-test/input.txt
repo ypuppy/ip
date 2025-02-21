@@ -1,12 +1,11 @@
-list
+clear
 todo go to utown
 todo go to pc common
-deadline eat lunch /by 1200 noon
-event have lecture /from 1400 /to 1600
+deadline eat lunch /by 2025-02-20
+event party /from 2025-02-20 /to 2025-02-21
 list
 mark 1
-mark 2
-unmark 2
-mark3
-mark 5
-bye
+delete 2
+unmark 1
+mark
+find lunch

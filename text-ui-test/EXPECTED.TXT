@@ -6,57 +6,60 @@ Hello from
 |____/ \__,_|_|      |_|______|
 
 ____________________________________________________________
-Hello! I'm Lumi
-What can I do for you?
+HELLO! I'm Lumi~
+What can I help you?
+____________________________________________________________
+You have saved these tasks Previously!:
+____________________________________________________________
+    1. [T][ ] go to utown
+    2. [D][ ] eat lunch (by: Feb 20 2025)
+    3. [E][ ] party (from: Feb 20 2025 to: Feb 21 2025)
 ____________________________________________________________
 ____________________________________________________________
-Exception in thread "main" LumiException: OOPS!!! Your list is empty.
+Got it! Your task list has been cleared!
 ____________________________________________________________
 ____________________________________________________________
-    Got it. I've added this task:
-      [T][ ] go to utown
-    Now you have 1 tasks in the list.
+Added: [T][ ] go to utown
+Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-    Got it. I've added this task:
-      [T][ ] go to pc common
-    Now you have 2 tasks in the list.
+Added: [T][ ] go to pc common
+Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-    Got it. I've added this task:
-      [D][ ] eat lunch (by: 1200 noon)
-    Now you have 3 tasks in the list.
+Added: [D][ ] eat lunch (by: Feb 20 2025)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-    Got it. I've added this task:
-      [E][ ] have lecture (from: 1400 to: 1600)
-    Now you have 4 tasks in the list.
+Added: [E][ ] party (from: Feb 20 2025 to: Feb 21 2025)
+Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-    Here are the tasks in your list:
+OK! Let me pull your list out..
     1. [T][ ] go to utown
     2. [T][ ] go to pc common
-    3. [D][ ] eat lunch (by: 1200 noon)
-    4. [E][ ] have lecture (from: 1400 to: 1600)
+    3. [D][ ] eat lunch (by: Feb 20 2025)
+    4. [E][ ] party (from: Feb 20 2025 to: Feb 21 2025)
+
 ____________________________________________________________
 ____________________________________________________________
-    Nice! I've marked this task as done:
-      [T][X] go to utown
+____________________________________________________________
+Nice! I've marked this task as done:
+    1. [T][X] go to utown
 ____________________________________________________________
 ____________________________________________________________
-    Nice! I've marked this task as done:
-      [T][X] go to pc common
+Removed: [T][ ] go to pc common
+Now you have 3 tasks left.
 ____________________________________________________________
 ____________________________________________________________
-    OK, I've marked this task as not done yet:
-      [T][ ] go to pc common
+OK, I've marked this task as not done yet:
+    1. [T][ ] go to utown
 ____________________________________________________________
 ____________________________________________________________
-    I don't understand that command.
+OOPS!!! Hrm.. what exactly do i need to do for the command?
 ____________________________________________________________
 ____________________________________________________________
-    Invalid task number!
-____________________________________________________________
-____________________________________________________________
-    Bye. Hope to see you again soon!
+Here are the matching tasks in your list :):
+1. [D][ ] eat lunch (by: Feb 20 2025)
+
 ____________________________________________________________
