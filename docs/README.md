@@ -10,7 +10,8 @@ Enjoy an interactive chat with LUMI !
 ### 🚀 Getting Started
 Prerequisites: 
 * JDK 17
-* Ensure Java 11 or later is installed.
+* Ensure Java 17 or later is installed.
+* download the latest JAR file
 
 run `java -jar lumi.jar`
 ### Basic Commands
