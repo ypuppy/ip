@@ -5,7 +5,7 @@ Lumi is a chatbot that helps you manage tasks effortlessly.
 It supports todos, deadlines, events, searching, etc. 
 Enjoy an interactive chat with LUMI !
 
-![screenshot of Lumi GUI](./UI.png)
+![screenshot of Lumi GUI](./Ui.png)
 
 ### 🚀 Getting Started
 Prerequisites: 
