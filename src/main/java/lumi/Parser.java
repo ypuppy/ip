@@ -66,16 +66,19 @@ public class Parser {
             }
             return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
         case "unmark":
+            assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "unmark need to specify a number";
             if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please specify a task number to unmark.");
             }
             return new UnmarkCommand(Integer.parseInt(words[1].trim()) - 1);
         case "find":
+            assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "find need a keyword";
             if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please provide a keyword to search for.");
             }
             return new FindCommand(words[1].trim());
         case "mark":
+            assert words.length >= MIN_WORD_LENGTH_FOR_GERNERAL_COMMAND : "mark need to specify a number";
             if (words[1].trim().isEmpty()) {
                 throw new LumiException("OOPS!!! Please specify a task number to mark.");
             }
