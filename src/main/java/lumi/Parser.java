@@ -104,7 +104,6 @@ public class Parser {
         case"clear":
             return new ClearCommand();
         default: throw new LumiException("Hrmm.. I don't understand that command.");
-            //default: throw new LumiException("OOPS!!! I'm sorry, but I don't understand that command.");
         }
     }
 

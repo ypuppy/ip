@@ -56,7 +56,8 @@ public class Task {
     }
 
     /**
-     * Tag an description
+     * Tag an description.
+     *
      * @param tag
      */
     public void setTag(String tag) {
@@ -65,8 +66,9 @@ public class Task {
 
     /**
      * Get the tag
-     * return empty is user did not set tag
-     * @return
+     * return empty is user did not set tag.
+     *
+     * @return string tag if it is not empty
      */
     public String getTag() {
         return tag.orElse("");

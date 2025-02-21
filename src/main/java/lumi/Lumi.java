@@ -65,9 +65,8 @@ public class Lumi {
     }
 
     /**
-     * The main entry point of the Lumi application.
+     * The main entry point.
      *
-     * @param args Command-line arguments (not used).
      * @throws LumiException If an error occurs during execution.
      */
     public static void main(String[] args) throws LumiException {
