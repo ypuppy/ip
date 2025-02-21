@@ -13,7 +13,7 @@ Prerequisites:
 * Ensure Java 17 or later is installed.
 * download the latest JAR file
 
-run `java -jar lumi.jar`
+run `java -jar Lumi.jar`
 ### Basic Commands
 1. Add tasks (todo, deadline, event)
 3. List tasks (list)
